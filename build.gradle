@@ -42,6 +42,9 @@ repositories {
     maven { url = "https://maven.ryanhcode.dev/releases" }
     maven { url = "https://maven.createmod.net" }
     maven { url = "https://api.modrinth.com/maven" }
+    maven { url = "https://maven.blamejared.com" }
+    maven { url = "https://maven.squiddev.cc"; content { includeGroup("cc.tweaked") } }
+    maven { url = "https://maven.ithundxr.dev/snapshots"; content { includeGroup("com.tterrag.registrate") } }
 }
 
 base {
@@ -136,8 +139,8 @@ dependencies {
     implementation("dev.ryanhcode.sable:sable-neoforge-1.21.1:${sable_version}")
     implementation("dev.ryanhcode.sable-companion:sable-companion-common-${minecraft_version}:${sable_companion_version}")
 
-    simulatedExtracted("maven.modrinth:create-aeronautics:${create_aeronautics_version}") { transitive = false }
-    compileOnly files(layout.buildDirectory.file("tmp/simulated-jar/dev.simulated_team.simulated.simulated-neoforge-1.21.1-1.3.0.jar"))
+    simulatedExtracted("maven.modrinth:create-aeronautics:${create_aeronautics_version}+mc${minecraft_version}") { transitive = false }
+    compileOnly files(layout.buildDirectory.file("tmp/simulated-jar/dev.simulated_team.simulated.simulated-neoforge-1.21.1-${create_aeronautics_version}.jar"))
 
     def extractSimulatedJar = tasks.register("extractSimulatedJar", Sync) {
         from {
@@ -148,10 +151,6 @@ dependencies {
         into layout.buildDirectory.dir("tmp/simulated-jar")
         eachFile { fcp -> fcp.relativePath = new RelativePath(!fcp.isDirectory(), fcp.name) }
         includeEmptyDirs = false
-    }
-
-    tasks.named("compileJava") {
-        dependsOn(extractSimulatedJar)
     }
 
 
