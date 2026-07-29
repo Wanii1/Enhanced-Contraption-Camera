@@ -48,7 +48,7 @@ public class EnhancedContraptionCamera {
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
-    private void commonSetup(FMLCommonSetupEvent event) {
+      private void commonSetup(FMLCommonSetupEvent event) {
         // Some common setup code
     }
 
